@@ -1,0 +1,26 @@
+{% extends "app1/base.html" %}
+
+{% block content %}
+    <h2>Checkout</h2>
+    <div class="order-info">
+        <ul>
+            {% for item in cart %}
+                <li>{{item.quantity}} x {{item.product.name}}
+                    <span>{{item.total_price}}</span>
+                </li>
+            {% endfor %}
+            {% if cart.coupon %} 
+                <li>
+                    "{{cart.coupon.code}}" {{cart.coupon.discount}} % off
+                    <span calss="neg">-${{cart.get_discount|floatformat:2}}</span>
+                </li>
+            {% endif %}
+        </ul> 
+        <p>total: {{cart.get_total_price_after_discount| floatformat:2}}</p>
+    </div>
+    <form method="post" class="order-form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" method="submit">
+    </form>
+{% endblock %}

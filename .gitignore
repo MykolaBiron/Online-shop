@@ -1,0 +1,4 @@
+.senv
+.env
+db.sqlite3
+replacements.txt
